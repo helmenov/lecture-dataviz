@@ -31,26 +31,6 @@ format:
     slide-level: 3
     incremental: false
     css: custom.css
-  pdf:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    linestretch: 1.0
-    indent: true
-    pdf-engine: lualatex
-    ducumentclass: ltjsarticle
-    classoption: [a4paper, 10pt, lualatex, ja=standard]
-    include-in-header:
-      text: |
-        \usepackage{luatexja}
-        \usepackage{luatexja-fontspec}
-        \usepackage[deluxe,ipaex]{luatexja-preset}
-        \usepackage{physics}
-        \usepackage{imakeidx}
-        \makeindex[intoc=true, columns=3, columnseprule=true, options=-s latex/indexstyles.ist]
-    include-after-body:
-      text: |
-        \printindex
 
 lang: ja
 

@@ -1,14 +1,3 @@
-title: "Pythonによるデータ可視化"
-subtitle: "初めての人向け・90分×8コマ"
-date: "2026年11月14日（土）・15日（日）"
-author:
-  - name: "薗田 光太郎 (Kotaro SONODA)"
-  - affiliation: "長崎大学 病院医療情報部"
-  - email: "kotaro@nagasaki-u.ac.jp"
-  - attribution:
-    - corresponding: true
-image: KotaroSONODA_JP.png
-
 jupyter:
   kernel: lecture-dataviz
 
@@ -17,6 +6,16 @@ project:
   output-dir: _book
 
 book:
+  title: "Pythonによるデータ可視化"
+  subtitle: "初めての人向け・90分×8コマ"
+  date: "2026年11月14日（土）・15日（日）"
+  author:
+    - name: "薗田 光太郎 (Kotaro SONODA)"
+    - affiliation: "長崎大学 病院医療情報部"
+    - email: "kotaro@nagasaki-u.ac.jp"
+    - attribution:
+      - corresponding: true
+  image: KotaroSONODA_JP.png
   chapters:
     - index.qmd
     - part: "1日目"
