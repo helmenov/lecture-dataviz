@@ -1,0 +1,61 @@
+# 第8コマ テスト模範解答 {.unnumbered}
+
+講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session8_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+
+```{python}
+# 第8コマ テストの模範解答(講師用)
+# 受験者は気づきを1つに絞る。ここには候補となる作例を載せる。
+# 埋め込まれたパターン:
+#  1. 年代が上がると反応時間が長い
+#  2. ペア条件は速いが、ばらつきが大きい
+#  3. 午後は午前より反応時間が長い
+#  おまけ: 外れ値2名(980, 1050) / 反応時間の欠けた値2件
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# 日本語表示(matplotlib-fontja が使えない環境では、入っている日本語フォントを探す)
+import matplotlib
+try:
+    import matplotlib_fontja  # noqa: F401
+except Exception:
+    from matplotlib import font_manager
+    _fonts = {f.name for f in font_manager.fontManager.ttflist}
+    for _n in ["IPAexGothic", "Noto Sans CJK JP", "Noto Sans JP",
+               "Yu Gothic", "Meiryo", "Hiragino Sans"]:
+        if _n in _fonts:
+            matplotlib.rcParams["font.family"] = _n
+            break
+    else:
+        print("注意: 日本語フォントが見つかりません(グラフの日本語が四角になります)")
+matplotlib.rcParams["axes.unicode_minus"] = False
+
+BASE = Path.cwd().parent  # この本では teacher フォルダの1つ上がプロジェクト直下
+df = pd.read_csv(BASE / "data" / "test_psych.csv")
+
+# 作例1: 年代と反応時間(分布で比べる)
+df.boxplot(column="反応時間", by="年代")
+plt.title("年代が上がると、反応時間は長くなる")
+plt.suptitle("")
+plt.xlabel("")
+plt.ylabel("反応時間(ミリ秒)")
+plt.show()
+
+# 作例2: 条件の比較(速さとばらつきの両方)
+df.boxplot(column="反応時間", by="条件")
+plt.title("ペアは速い人が多いが、遅い人もいてばらつきが大きい")
+plt.suptitle("")
+plt.xlabel("")
+plt.ylabel("反応時間(ミリ秒)")
+plt.show()
+
+# 作例3: 時間帯の比較
+df.boxplot(column="反応時間", by="時間帯")
+plt.title("午後は午前より反応が遅い")
+plt.suptitle("")
+plt.xlabel("")
+plt.ylabel("反応時間(ミリ秒)")
+plt.show()
+
+```

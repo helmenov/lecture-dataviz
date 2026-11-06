@@ -1,0 +1,65 @@
+# 第8コマ　テスト「データを眺めて、気づいたことをグラフで納得させよ」
+
+::: {.content-visible unless-format="revealjs"}
+このコマの進め方：課題の説明（10分）→ テスト実施（70分）→ 振り返り（10分）。
+2日間の総合テストです。第1〜7コマの道具を、自分の力で使います。
+:::
+
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+import pandas as pd
+# 日本語表示(matplotlib-fontja が使えない環境では、入っている日本語フォントを探す)
+import matplotlib
+try:
+    import matplotlib_fontja  # noqa: F401
+except Exception:
+    from matplotlib import font_manager
+    _fonts = {f.name for f in font_manager.fontManager.ttflist}
+    for _n in ["IPAexGothic", "Noto Sans CJK JP", "Noto Sans JP",
+               "Yu Gothic", "Meiryo", "Hiragino Sans"]:
+        if _n in _fonts:
+            matplotlib.rcParams["font.family"] = _n
+            break
+matplotlib.rcParams["axes.unicode_minus"] = False
+```
+
+## 課題文
+
+配布されたデータ（test_psych.csv：ある注意課題の実験に参加した120名の記録）を眺めて、気づきを**1つ**挙げ、それを**グラフだけで納得させる**形で示しなさい。
+
+- 列：ID、年代、性別、条件（単独／ペア）、時間帯（午前／午後）、反応時間（ミリ秒）、正答数（20問中）
+- 提出物：①気づき（1文）②その気づきを納得させるグラフ（タイトル＝主張）③使ったプログラム
+- 比べる場合は、平均だけでなく**分布の格差（中心・広がり・重なり）**が見える形にすること
+- 制限時間70分
+
+## 課題スターター
+
+```{python}
+df = pd.read_csv("data/test_psych.csv")
+print(df.head())
+print(df.describe(include="all"))
+# ここから先は自分で書く
+```
+
+## 進め方の目安（第6コマの手順）
+
+1. **眺める**（15分）：一覧と describe、groupby で一通り眺める
+2. **気づきを1つ選ぶ**（5分）：一文で言える形にする
+3. **確かめる**（15分）：集計で数字の裏づけを取る。比べる場合は分布の格差を見る
+4. **グラフに仕上げる**（25分）：タイトル＝主張、軸は0から、単位と件数
+5. **見直す**（10分）：下のチェックリストで自己確認して提出
+
+## 提出前チェックリスト
+
+- [ ] 気づきは一文で書いたか
+- [ ] グラフのタイトルが、主張になっているか
+- [ ] 比べる相手が同じ図に入っているか
+- [ ] 軸が0から始まっているか（量のグラフの場合）
+- [ ] 単位と件数（n＝）を書いたか
+- [ ] プログラムが、もう一度実行しても同じ図になるか
+
+## 振り返り
+
+- お互いのグラフを見て、「一目で主張が伝わるか」を確かめ合います
+- 「平均だけでは分からない姿を、グラフで知る」——これがこの講座の芯でした（第1コマ）

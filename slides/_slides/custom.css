@@ -1,0 +1,30 @@
+/* Reveal.js 用の調整: 本(HTML)と同じ .qmd から作るため、文字と図を小さめにして
+   1枚に収まるようにする。スライド内スクロールは使わず、全体の拡大縮小で合わせる。 */
+.reveal {
+  font-size: 27px;
+}
+.reveal h1 {
+  font-size: 1.8em;
+}
+.reveal h2 {
+  font-size: 1.35em;
+}
+.reveal pre code {
+  font-size: 0.62em;
+  line-height: 1.3;
+}
+.reveal .cell-output pre {
+  font-size: 0.6em;
+  line-height: 1.3;
+}
+.reveal table {
+  font-size: 0.72em;
+}
+.reveal img {
+  max-height: 54vh;
+  width: auto;
+}
+.reveal .cell-output-display img {
+  max-height: 46vh;
+  width: auto;
+}

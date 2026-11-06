@@ -1,0 +1,20 @@
+# 第2コマ 解答例 {.unnumbered}
+
+講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session2_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+
+```{python}
+# 第2コマ 演習の解答例
+
+# 1. 平均
+scores = [80, 90, 70, 100]
+print(sum(scores) / len(scores))  # 85.0
+
+# 2. 辞書で1行
+item = {"商品": "紅茶", "単価": 400, "個数": 3}
+print(item["商品"], item["単価"] * item["個数"])  # 紅茶 1200
+
+# 3. 1から5までの2倍
+for n in [1, 2, 3, 4, 5]:
+    print(n * 2)
+
+```

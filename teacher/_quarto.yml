@@ -1,0 +1,61 @@
+title: "Pythonによるデータ可視化"
+subtitle: "初めての人向け・90分×8コマ"
+date: "2026年11月14日（土）・15日（日）"
+author:
+  - name: "薗田 光太郎 (Kotaro SONODA)"
+  - affiliation: "長崎大学 病院医療情報部"
+  - email: "kotaro@nagasaki-u.ac.jp"
+  - attribution:
+    - corresponding: true
+image: KotaroSONODA_JP.png
+
+jupyter:
+  kernel: lecture-dataviz
+
+project:
+  type: book
+  output-dir: _teacher_book
+
+book:
+  chapters:
+    - index.qmd
+    - session1_answers.qmd
+    - session2_answers.qmd
+    - session3_answers.qmd
+    - session4_answers.qmd
+    - session5_answers.qmd
+    - session6_answers.qmd
+    - session7_answers.qmd
+    - session8_answers.qmd
+    - test_guide.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    linestretch: 1.0
+    indent: true
+    pdf-engine: lualatex
+    ducumentclass: ltjsarticle
+    classoption: [a4paper, 10pt, lualatex, ja=standard]
+    include-in-header:
+      text: |
+        \usepackage{luatexja}
+        \usepackage{luatexja-fontspec}
+        \usepackage[deluxe,ipaex]{luatexja-preset}
+        \usepackage{physics}
+        \usepackage{imakeidx}
+        \makeindex[intoc=true, columns=3, columnseprule=true, options=-s latex/indexstyles.ist]
+    include-after-body:
+      text: |
+        \printindex
+
+lang: ja
+
+execute:
+  echo: true
+  warning: false

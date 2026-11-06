@@ -1,0 +1,47 @@
+# 第6コマ 解答例 {.unnumbered}
+
+講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session6_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+
+```{python}
+# 第6コマ 演習の解答例(講師用デモ: 年代と反応時間 / 外れ値)
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# 日本語表示(matplotlib-fontja が使えない環境では、入っている日本語フォントを探す)
+import matplotlib
+try:
+    import matplotlib_fontja  # noqa: F401
+except Exception:
+    from matplotlib import font_manager
+    _fonts = {f.name for f in font_manager.fontManager.ttflist}
+    for _n in ["IPAexGothic", "Noto Sans CJK JP", "Noto Sans JP",
+               "Yu Gothic", "Meiryo", "Hiragino Sans"]:
+        if _n in _fonts:
+            matplotlib.rcParams["font.family"] = _n
+            break
+    else:
+        print("注意: 日本語フォントが見つかりません(グラフの日本語が四角になります)")
+matplotlib.rcParams["axes.unicode_minus"] = False
+
+BASE = Path.cwd().parent  # この本では teacher フォルダの1つ上がプロジェクト直下
+rt = pd.read_csv(BASE / "data" / "psych_rt.csv")
+
+# 気づき1: 年代が上がると反応時間が長い → 箱ひげ図で分布ごと比べる
+rt.boxplot(column="反応時間", by="年代")
+plt.title("年代が上がると、反応時間は長くなる")
+plt.suptitle("")
+plt.xlabel("")
+plt.ylabel("反応時間(ミリ秒)")
+plt.show()
+
+# 気づき2: 音楽条件には飛び抜けて遅い人がいる → ヒストグラムで姿を見る
+music = rt[rt["条件"] == "音楽あり"]
+music["反応時間"].plot.hist(bins=15, color="#F58518", edgecolor="white",
+                          title="音楽条件には、飛び抜けて遅い人が混ざっている",
+                          xlabel="反応時間(ミリ秒)")
+plt.show()
+print("700ミリ秒以上:", len(music[music["反応時間"] >= 700]), "名")
+
+```
