@@ -11,3 +11,9 @@ wheels/
 
 /.quarto/
 **/*.quarto_ipynb
+/_book/*
+!/_book/*.pdf
+/slides/_slides/*
+/teacher/_teacher_book/*
+!/teacher/_teacher_book/*.pdf
+
