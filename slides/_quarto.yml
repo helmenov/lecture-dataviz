@@ -15,6 +15,7 @@ project:
   type: default
   output-dir: _slides
   render:
+    - index.qmd
     - session1.qmd
     - session2.qmd
     - session3.qmd
