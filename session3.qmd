@@ -1,3 +1,6 @@
+---
+date: 2026/11/14
+---
 # 第3コマ　データ集め、データ（変数）の尺度
 
 ::: {.content-visible unless-format="revealjs"}

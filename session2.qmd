@@ -1,3 +1,6 @@
+---
+date: 2026/11/14
+---
 # 第2コマ　Python入門
 
 ::: {.content-visible unless-format="revealjs"}

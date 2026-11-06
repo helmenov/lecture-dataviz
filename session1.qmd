@@ -1,3 +1,6 @@
+---
+date: 2026/11/14
+---
 # 第1コマ　データ可視化（導入編）
 
 ::: {.content-visible unless-format="revealjs"}

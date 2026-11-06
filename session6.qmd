@@ -1,3 +1,6 @@
+---
+date: 2026/11/15
+---
 # 第6コマ　データを眺めて、気づいたことをグラフだけで納得させる（データ分析）
 
 ::: {.content-visible unless-format="revealjs"}

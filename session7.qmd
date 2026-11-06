@@ -1,3 +1,6 @@
+---
+date: 2026/11/15
+---
 # 第7コマ　仮説を納得させるグラフを作るためのデータ集め
 
 ::: {.content-visible unless-format="revealjs"}
