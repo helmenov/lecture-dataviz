@@ -1,21 +1,8 @@
-title: "Pythonによるデータ可視化"
-subtitle: "初めての人向け・90分×8コマ"
-author:
-  - name: "薗田 光太郎 (Kotaro SONODA)"
-  - affiliation: "長崎大学 病院医療情報部"
-  - email: "kotaro@nagasaki-u.ac.jp"
-  - attribution:
-    - corresponding: true
-image: KotaroSONODA_JP.png
-
-jupyter:
-  kernel: lecture-dataviz
-
 project:
   type: default
   output-dir: _slides
   render:
-    - index.qmd
+    - index.md
     - session1.qmd
     - session2.qmd
     - session3.qmd

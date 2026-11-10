@@ -36,7 +36,7 @@ quarto render
 - `session1.qmd`〜`session8.qmd` … 各コマの章
 - `appendix_terms.qmd` … 用語のミニ辞典
 - `appendix_trouble.qmd` … 困ったときの対処表
-- `assets/` … 例図・Thonnyの画面写真
+- `assets/` … 例図・JupyterLabの画面の実物スクリーンショット（`jupyterlab_ui.png`、番号注釈つき）
 - `data/` … 実習データ
 
 ※ 講師用の解答例とテスト実施ガイドは、プロジェクト内の `teacher/` フォルダに**別の book** として置いてあります（受講者向けの本には含まれません）。

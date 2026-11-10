@@ -1,7 +1,12 @@
 ---
 date: 2026/11/14
 ---
-# 第4コマ　表のいろいろ・表作成
+# 第4コマ　PandasとMatplotlibを用いたJupyterノートブック
+
+```{=html}
+<div style="text-align: right; font-size: 0.8em; color: #666;">本資料（画像を含む）の無断転載・無断使用は禁止します．</div>
+```
+
 
 ::: {.content-visible unless-format="revealjs"}
 このコマの進め方：講義（40分）→ 一緒に実習（35分）→ 演習と振り返り（15分）。
@@ -11,7 +16,26 @@ date: 2026/11/14
 ```{python}
 #| echo: false
 import pandas as pd
+# 日本語表示(matplotlib-fontja が使えない環境では、入っている日本語フォントを探す)
+import matplotlib
+try:
+    import matplotlib_fontja  # noqa: F401
+except Exception:
+    from matplotlib import font_manager
+    _fonts = {f.name for f in font_manager.fontManager.ttflist}
+    for _n in ["IPAexGothic", "Noto Sans CJK JP", "Noto Sans JP",
+               "Yu Gothic", "Meiryo", "Hiragino Sans"]:
+        if _n in _fonts:
+            matplotlib.rcParams["font.family"] = _n
+            break
+matplotlib.rcParams["axes.unicode_minus"] = False
 ```
+
+## このコマの進め方：Jupyterノートブックで表を作る
+
+- このコマは、**Jupyter ノートブック**で **pandas** を使って表を作ります
+- ノートブックでは、プログラムとその結果（表）を同じ画面で見ながら進められます。表の表示には `display()` を使います
+- グラフ描画の裏側では **Matplotlib** が動きます。この後のコマでグラフを描くときに文字が欠けないよう、日本語表示（matplotlib-fontja）の準備も、上のプログラムで済ませてあります
 
 ## 表の4段階
 
@@ -53,7 +77,7 @@ display(rt[["反応時間", "正答数"]].describe())
 :::
 
 - `describe()` は、個数・平均・標準偏差・最小・四分位数・最大を一度に並べてくれます
-- ここの四分位数（25%、50%、75%）が、第5コマの箱ひげ図につながります
+- ここの四分位数（25%、50%、75%）が、第6コマの箱ひげ図につながります
 
 ## 段階3：関係（クロス集計表）
 
@@ -134,4 +158,4 @@ display(f"ヒット率: {hit_rate:.0%} / 誤警報率: {fa_rate:.0%}")
 
 - 表は4段階：収集（一覧表）／要約（代表値の表）／関係（クロス集計）／推測（混同行列）
 - pandas では read_csv → head/shape → describe/crosstab/groupby が基本の流れ
-- 明日は、この表をグラフに変えていきます
+- 2日目は、尺度の話のあと、この表をグラフに変えていきます

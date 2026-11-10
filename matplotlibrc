@@ -1,0 +1,9 @@
+# 講義資料 book 用：図の中のフォントを本文（12pt）にそろえるための設定。
+# Quarto のコード実行時にカレントディレクトリの matplotlibrc として読み込まれる。
+font.size: 12
+axes.titlesize: 12
+axes.labelsize: 12
+xtick.labelsize: 12
+ytick.labelsize: 12
+legend.fontsize: 12
+figure.titlesize: 12

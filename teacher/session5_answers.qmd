@@ -1,51 +1,21 @@
-# 第5コマ 解答例 {.unnumbered}
+# 第5コマ 解答例（尺度の判定） {.unnumbered}
 
-講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session5_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+講師用の解答例です。旧第3コマ（尺度）の解答例を、シラバス順の組み替えにより第5コマ用に移しました。元のファイルは `lecture-dataviz/code/answers/session5_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
 
 ```{python}
-# 第5コマ 演習の解答例(pandasでグラフ作成)
-from pathlib import Path
+# 第5コマ 演習の解答例(尺度の判定)
+answers = [
+    ("郵便番号", "名義尺度", "平均NG(ただの番号)"),
+    ("好きな色", "名義尺度", "平均NG(数えられるのは人数)"),
+    ("テストの点数", "間隔尺度(比尺度と扱うことも多い)", "平均OK"),
+    ("兄弟の人数", "比尺度", "平均OK"),
+    ("駅の混雑具合", "順序尺度", "平均は参考程度、中央値や度数が向く"),
+]
+for name, scale, note in answers:
+    print(f"{name}: {scale} / {note}")
 
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-
-# 日本語表示(matplotlib-fontja が使えない環境では、入っている日本語フォントを探す)
-import matplotlib
-try:
-    import matplotlib_fontja  # noqa: F401
-except Exception:
-    from matplotlib import font_manager
-    _fonts = {f.name for f in font_manager.fontManager.ttflist}
-    for _n in ["IPAexGothic", "Noto Sans CJK JP", "Noto Sans JP",
-               "Yu Gothic", "Meiryo", "Hiragino Sans"]:
-        if _n in _fonts:
-            matplotlib.rcParams["font.family"] = _n
-            break
-matplotlib.rcParams["axes.unicode_minus"] = False
-
-BASE = Path.cwd().parent  # この本では teacher フォルダの1つ上がプロジェクト直下
-
-# 1a. 出席率の変化 → 折れ線
-rate = pd.Series(np.clip(90 + np.cumsum(np.random.default_rng(1).normal(0, 1.5, 30)), 70, 100))
-rate.plot.line(marker="o", markersize=3, title="出席率は月を通してほぼ横ばい",
-               xlabel="日", ylabel="出席率(%)")
-plt.show()
-
-# 1b. 満足度の偏り → 度数の棒グラフ
-survey = pd.read_csv(BASE / "data" / "survey.csv")
-counts = survey["満足度"].value_counts().sort_index()
-counts.plot.bar(color="#4C78A8", title="満足度は4に山がある",
-                xlabel="満足度", ylabel="人数")
-plt.show()
-
-# 1c. 身長と体重の関係 → 散布図
-rng = np.random.default_rng(2)
-body = pd.DataFrame({"身長": rng.normal(165, 8, 50)})
-body["体重"] = (body["身長"] - 100) + rng.normal(0, 5, 50)
-body.plot.scatter(x="身長", y="体重", title="身長が高い人ほど体重も重い傾向")
-plt.show()
-
-# 2-3. 軸は0から、タイトルは結論形に(本文の例6がその形になっています)
+# 演習2の答え（本文中の答えと同じ）:
+# 背番号：名義（数字符号）。気温：間隔。血液型：名義。
+# 満足度（1〜5点）：間隔として扱う。身長：比。順位：順序
 
 ```

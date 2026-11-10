@@ -1,6 +1,8 @@
-# 第4コマ 解答例 {.unnumbered}
+# 第4コマ 解答例（Jupyterノートブック・pandas） {.unnumbered}
 
-講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session4_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+講師用の解答例です。旧第4コマ（表のいろいろ）の解答例で、コマ番号は変わっていません。元のファイルは `lecture-dataviz/code/answers/session4_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+
+Jupyterノートブックでは、表示に `print()` でも `display()` でも結果が出ます（`display()` の方が表は読みやすく整形されます）。
 
 ```{python}
 # 第4コマ 演習の解答例(pandas)
@@ -10,20 +12,36 @@ import pandas as pd
 
 BASE = Path.cwd().parent  # この本では teacher フォルダの1つ上がプロジェクト直下
 
-df = pd.read_csv(BASE / "data" / "weather_week.csv")
-# 1. 最低気温の平均 / 降水量が0より大きい日
-print("最低気温の平均:", df["最低気温"].mean())
-print(df[df["降水量"] > 0])
+# 演習1. survey.csv で、年代ごとの満足度クロス集計を「割合」の表にし、一文で読み取る
+survey = pd.read_csv(BASE / "data" / "survey.csv")
+print(pd.crosstab(survey["年代"], survey["満足度"]))
+# 割合にするには（行ごとに100%とする例）：
+print((pd.crosstab(survey["年代"], survey["満足度"], normalize="index") * 100).round(1))
+# 読み取りの例：「満足度5は若い年代に多い」のように、行と列の交わりを見て1つ書けばよい。
 
-# 2. 商品ごとの個数合計の一元表
+# 演習2. shop_sales.csv で、商品ごとの金額合計の一元表を作る（単価×個数＝金額の列を足してから合計）
 sales = pd.read_csv(BASE / "data" / "shop_sales.csv")
+sales["金額"] = sales["単価"] * sales["個数"]
+by_amount = (sales.groupby("商品")["金額"].sum()
+             .sort_values(ascending=False))
+print(by_amount)
+# 参考：個数合計の一元表（金額にする前の段階）
 by_qty = (sales.groupby("商品")["個数"].sum()
           .sort_values(ascending=False))
 print(by_qty)
 
-# 3. survey.csv で年代×満足度のクロス集計(人数)と気づき(例):
-# 「満足度5は若い年代に多い」のように、行と列の交わりを見て1つ書けばよい。
-survey = pd.read_csv(BASE / "data" / "survey.csv")
-print(pd.crosstab(survey["年代"], survey["満足度"]))
+# 演習3. sdt_trials.csv の混同行列から、ヒット率と誤警報率を求める
+sdt = pd.read_csv(BASE / "data" / "sdt_trials.csv")
+cm = pd.crosstab(sdt["刺激"], sdt["反応"])
+print(cm)
+hit_rate = cm.loc["あり", "あった"] / cm.loc["あり"].sum()
+fa_rate = cm.loc["なし", "あった"] / cm.loc["なし"].sum()
+print(f"ヒット率: {hit_rate:.0%} / 誤警報率: {fa_rate:.0%}")
+# 本文の表（ヒット38・見落とし12・誤警報9・正棄却41）では、ヒット率76%・誤警報率18%
+
+# 参考：要約の表（実習の例：最低気温の平均 / 降水量が0より大きい日）
+df = pd.read_csv(BASE / "data" / "weather_week.csv")
+print("最低気温の平均:", df["最低気温"].mean())
+print(df[df["降水量"] > 0])
 
 ```

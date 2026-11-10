@@ -1,19 +1,84 @@
-# 第7コマ 解答例（計画シート記入例） {.unnumbered}
+# 第7コマ 解答例（スクレイピングのデモ） {.unnumbered}
 
-講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session7_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+講師用の解答例です。第7コマは「仮説」の話をやめ、スクレイピングのライブデモと班実習で構成し直しました（2026-11-10）。ここにはデモと発展のコード（受講者用bookと同じもの）を載せます。元のファイルは `lecture-dataviz/code/session7.py` です。
+
+実習の進め方：「一緒に実習」でデモを再現させたあと、班ごとにテーマを決め、Wikipedia の自治体ページなど表のあるページから各自で表を取得させます。発表は「作った図表」と「気づき1つ」が中心です。当日ネットにつながらない場合は、配布データの `data/nagasaki_population.csv`（実施年と長崎市人口の2列、デモで取得する表と同じ内容）で代替できます（この本の配置では `../data/nagasaki_population.csv`）。
+
+## デモ：長崎市の人口推移
 
 ```{python}
-# 第7コマ 実習の記入例(講師用)
-plan_example = {
-    "仮説": "課題の前に手本を見せると、正答数が増えるはず",
-    "比べる相手": "手本を見せない条件の正答数",
-    "必要な変数": ["手本の有無(名義)", "正答数(比尺度)", "反応時間(比尺度)", "年代(名義)"],
-    "集め方": "実験: 参加者を2つの条件に分け、同じ課題を実施する",
-    "相手と数": "各条件30名ずつ(計60名)",
-    "期間": "来週の月曜〜金曜",
-    "偏りへの対策": "条件ごとに年代や性別が偏らないよう割り付ける。実施する時間帯もそろえる",
-}
-for k, v in plan_example.items():
-    print(k, ":", v)
+#| echo: false
+import matplotlib.pyplot as plt
+import pandas as pd
+import matplotlib
+try:
+    import matplotlib_fontja  # noqa: F401
+except Exception:
+    from matplotlib import font_manager
+    _fonts = {f.name for f in font_manager.fontManager.ttflist}
+    for _n in ["IPAexGothic", "Noto Sans CJK JP", "Noto Sans JP",
+               "Yu Gothic", "Meiryo", "Hiragino Sans"]:
+        if _n in _fonts:
+            matplotlib.rcParams["font.family"] = _n
+            break
+matplotlib.rcParams["axes.unicode_minus"] = False
+```
 
+```{python}
+import requests
+from io import StringIO
+
+url = "https://ja.wikipedia.org/wiki/長崎市"
+html = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (lecture practice)"}).text
+tables = pd.read_html(StringIO(html))
+print(len(tables), "個の表が見つかりました")
+
+pop = None
+for t in tables:
+    if any("長崎市人口" in str(c) for c in t.columns):
+        pop = t
+        break
+
+pop2 = pop[["実施年", "長崎市人口(人)"]].copy()
+pop2["実施年"] = pop2["実施年"].astype(str).str.replace("年", "").astype(int)
+display(pop2)
+
+plt.plot(pop2["実施年"], pop2["長崎市人口(人)"], marker="o")
+plt.title("長崎市の人口の推移(国勢調査)")
+plt.xlabel("実施年")
+plt.ylabel("人口(人)")
+plt.grid(True)
+plt.show()
+```
+
+## 発展：年齢層の割合の推移
+
+```{python}
+url2 = "https://ja.wikipedia.org/wiki/日本の人口統計"
+html2 = requests.get(url2, headers={"User-Agent": "Mozilla/5.0 (lecture practice)"}).text
+tables2 = pd.read_html(StringIO(html2))
+
+age = None
+for t in tables2:
+    if any("年齢層割合" in str(c) for c in t.columns):
+        age = t
+        break
+
+# 2段になっている列名を、下の段の名前だけにそろえる
+age = age.copy()
+age.columns = [c[-1] if isinstance(c, tuple) else c for c in age.columns]
+
+age2 = age[["Year", "0–14", "15–64", "65+"]].copy()
+age2.columns = ["年", "0〜14歳", "15〜64歳", "65歳以上"]
+for col in ["0〜14歳", "15〜64歳", "65歳以上"]:
+    age2[col] = age2[col].astype(str).str.replace("%", "", regex=False).astype(float)
+display(age2.head())
+
+age2.plot(x="年", kind="bar", stacked=True,
+          color=["#4C9F70", "#4E79A7", "#E15728"])
+plt.title("日本の年齢層割合の推移")
+plt.xlabel("年")
+plt.ylabel("割合(%)")
+plt.legend()
+plt.show()
 ```

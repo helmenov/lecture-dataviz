@@ -1,20 +1,13 @@
-# 第2コマ 解答例 {.unnumbered}
+# 第2コマ 解答例（環境構築） {.unnumbered}
 
-講師用の解答例です。元のファイルは `lecture-dataviz/code/answers/session2_answers.py` です（data フォルダへのパスだけ、この本の配置に合わせて調整しています）。
+講師用の解答例です。
+
+第2コマ（Python開発環境の構築）には、解答例のある演習はありません。試し実行は次の3行だけで、表示されれば環境は整っています。
 
 ```{python}
-# 第2コマ 演習の解答例
-
-# 1. 平均
-scores = [80, 90, 70, 100]
-print(sum(scores) / len(scores))  # 85.0
-
-# 2. 辞書で1行
-item = {"商品": "紅茶", "単価": 400, "個数": 3}
-print(item["商品"], item["単価"] * item["個数"])  # 紅茶 1200
-
-# 3. 1から5までの2倍
-for n in [1, 2, 3, 4, 5]:
-    print(n * 2)
-
+print('こんにちは')
+print(3 + 4)          # 足し算
+print(120 * 1.1)      # 消費税込みの価格
 ```
+
+プログラミングの演習（平均・辞書・繰り返し・条件分岐）の解答例は、シラバス順の組み替えにより**第3コマ**に移しました（`session3_answers.qmd` を参照）。原本（`lecture-dataviz/code/answers/`）も同じ構成に直してあり、このページの原本は `session2_answers.py`、プログラミング演習の解答例の原本は `session3_answers.py` です。

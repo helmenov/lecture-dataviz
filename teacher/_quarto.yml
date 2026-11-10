@@ -1,22 +1,11 @@
-author:
-  - name: "薗田 光太郎 (Kotaro SONODA)"
-  - affiliation: "長崎大学 病院医療情報部"
-  - email: "kotaro@nagasaki-u.ac.jp"
-  - attribution:
-    - corresponding: true
-
-jupyter:
-  kernel: lecture-dataviz
-
 project:
   type: book
   output-dir: _teacher_book
 
 book:
-  title: "Pythonによるデータ可視化"
-  subtitle: "初めての人向け・90分×8コマ"
-  author: "長崎大学 病院医療情報部\\ 薗田 光太郎 (Kotaro Sonoda)"
-  url: "mailto:kotaro@nagasaki-u.ac.jp"
+  title: "Pythonによるデータ可視化 ― 講師用資料"
+  subtitle: "解答例とテスト実施ガイド（受講者には配布しません）"
+  author: "薗田 光太郎"
   chapters:
     - index.qmd
     - session1_answers.qmd
@@ -39,17 +28,65 @@ format:
     number-sections: true
     linestretch: 1.0
     indent: true
+    papersize: a4
     pdf-engine: lualatex
-    ducumentclass: ltjsarticle
-    classoption: [a4paper, 10pt, lualatex, ja=standard]
+    latex-auto-install: false
+    documentclass: ltjsbook
+    classoption: [a4paper, 12pt, lualatex, ja=standard]
     include-in-header:
       text: |
         \usepackage{luatexja}
         \usepackage{luatexja-fontspec}
         \usepackage[deluxe,ipaex]{luatexja-preset}
         \usepackage{physics}
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines=true,breakanywhere=true,commandchars=\\\{\}}
+        \DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
+        \AtBeginDocument{\date{2026年11月14日（土）・15日（日）}}
         \usepackage{imakeidx}
         \makeindex[intoc=true, columns=3, columnseprule=true, options=-s latex/indexstyles.ist]
+        \makeatletter
+        \renewcommand{\maketitle}{%
+          \begin{titlepage}%
+            \begin{center}%
+              \vspace*{2cm}%
+              {\large 専門科目：情報\par}%
+              \vspace{2cm}%
+              {\Huge\bfseries Pythonによるデータ可視化\par}%
+              \vspace{1.2cm}%
+              {\large 初めての人向け・90分×8コマ\par}%
+              \vspace{2.5cm}%
+              {\large 長崎大学病院 医療情報部\quad 薗田 光太郎\par}%
+              \vspace{0.7cm}%
+              {\large 放送大学 長崎学習センター\par}%
+              \vfill
+              {\large \@date\par}%
+              \vspace*{1.5cm}%
+            \end{center}%
+          \end{titlepage}%
+        }
+        \makeatother
+        \usepackage{fancyhdr}
+        \fancypagestyle{plain}{%
+          \fancyhf{}%
+          \renewcommand{\headrulewidth}{0pt}%
+          \renewcommand{\footrulewidth}{0pt}%
+          \fancyfoot[C]{{\footnotesize 本資料（画像を含む）の無断転載・無断使用は禁止します．}\\[0.6em]\thepage}%
+        }
+        \fancypagestyle{plainhead}{%
+          \fancyhf{}%
+          \renewcommand{\headrulewidth}{0pt}%
+          \renewcommand{\footrulewidth}{0pt}%
+          \fancyhead[RO]{\textbf{\thepage}}%
+          \fancyhead[LE]{\textbf{\thepage}}%
+          \fancyfoot[C]{{\footnotesize 本資料（画像を含む）の無断転載・無断使用は禁止します．}}%
+        }
+        \fancypagestyle{plainfoot}{%
+          \fancyhf{}%
+          \renewcommand{\headrulewidth}{0pt}%
+          \renewcommand{\footrulewidth}{0pt}%
+          \fancyfoot[C]{{\footnotesize 本資料（画像を含む）の無断転載・無断使用は禁止します．}\\[0.6em]\thepage}%
+        }
     include-after-body:
       text: |
         \printindex
