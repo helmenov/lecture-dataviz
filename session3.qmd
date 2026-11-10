@@ -99,12 +99,16 @@ matplotlib.rcParams["axes.unicode_minus"] = False
 
 ## 実習：データを読み込んで、列の尺度を考える
 
+- pandas で読み込んだデータは，`print()` ではなく `display()`の方が読みやすい（整形されます）．
+
+::: {.callout}
 ```{python}
 survey = pd.read_csv("data/survey.csv")
-print(survey.head())
-print(survey["年代"].unique())        # 水準を取り出す
-print(survey["満足度"].value_counts())
+display(survey.head())
+display(survey["年代"].unique())        # 水準を取り出す
+display(survey["満足度"].value_counts())
 ```
+:::
 
 列ごとに「これは何尺度か」を言えるようにしておきましょう。
 

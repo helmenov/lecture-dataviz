@@ -15,10 +15,11 @@ project:
   output-dir: _book
 
 book:
-  title: "Pythonによるデータ可視化"
-  subtitle: "初めての人向け・90分×8コマ"
-  author: "長崎大学 病院医療情報部\\ 薗田 光太郎 (Kotaro Sonoda)"
+  title: "【専門科目：情報】Pythonによるデータ可視化"
+  subtitle: "初めての人向け・90分 × 8コマ"
+  author: "長崎大学 病院医療情報部 薗田 光太郎 (Kotaro Sonoda)"
   url: "mailto:kotaro@nagasaki-u.ac.jp"
+
   chapters:
     - index.qmd
     - part: "1日目 11/14"
@@ -45,12 +46,13 @@ format:
   pdf:
     toc: true
     toc-depth: 3
+    footer: "CC-BYSA"
     number-sections: true
     linestretch: 1.0
     indent: true
     pdf-engine: lualatex
     ducumentclass: ltjsarticle
-    classoption: [a4paper, 10pt, lualatex, ja=standard]
+    classoption: [a4paper, 24pt, lualatex, ja=standard]
     include-in-header:
       text: |
         \usepackage{luatexja}
@@ -59,12 +61,19 @@ format:
         \usepackage{physics}
         \usepackage{imakeidx}
         \makeindex[intoc=true, columns=3, columnseprule=true, options=-s latex/indexstyles.ist]
+        \usepackage{scrlayer-scrpage}
+        % 全ページのデフォルトスタイルをクリア
+        \clearpairofpagestyles
+        % タイトルページ（plainスタイルが適用される）のフッターを設定
+        \ifoot*{}
+        \cfoot*{\thepage \\本資料（画像を含む）の無断転載・無断使用は禁止します。}
+        \ofoot*{}
     include-after-body:
       text: |
         \printindex
-
 lang: ja
 
 execute:
   echo: true
   warning: false
+

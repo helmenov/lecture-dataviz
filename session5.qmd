@@ -73,26 +73,32 @@ scores = pd.DataFrame({
 
 ## 折れ線・棒・散布図
 
+::: {.callout}
 ```{python}
 temp.plot.line(marker="o", title="週の後半に暑くなった", ylabel="最高気温(℃)")
 plt.grid(alpha=0.3)
 plt.show()
 ```
+:::
 
 ---
 
+::: {.callout}
 ```{python}
 sales.plot.bar(color="#4C78A8", title="売上の中心はコーヒー", ylabel="杯数")
 plt.show()
 ```
+:::
 
 ---
 
+::: {.callout}
 ```{python}
 study.plot.scatter(x="勉強時間", y="点数", color="#F58518",
                    title="勉強時間とテストの点数")
 plt.show()
 ```
+:::
 
 ::: {.callout-note}
 円グラフは角度が読みにくいので注意が必要です。3Dグラフは、奥行きで値が読みにくいのでこの講座では扱いません。
@@ -100,20 +106,24 @@ plt.show()
 
 ## ヒストグラム：分布の形を見る
 
+::: {.callout}
 ```{python}
 heights.plot.hist(bins=12, color="#54A24B", edgecolor="white",
                   title="受講生200人の身長の分布", xlabel="身長(cm)")
 plt.show()
 ```
+:::
 
 ## 箱ひげ図：分布を要約して比べる
 
+::: {.callout}
 ```{python}
 scores.boxplot()
 plt.title("クラスごとのテストの点数")
 plt.ylabel("点数")
 plt.show()
 ```
+:::
 
 ### 四分位数：データを小さい順に「4つに分ける」
 
@@ -136,12 +146,12 @@ plt.show()
 ### 外れ値（ハズレ値）：飛び抜けた点の扱い
 
 - 箱ひげ図で、ひげの外に点で描かれる値が外れ値です
-- 目安は数式でも定義されます：Q1 − 1.5×IQR より小さい、または Q3 ＋ 1.5×IQR より大きい
-- 外れ値は「間違い」と決めつけず、まず理由を調べます（入力ミスか、本当は特別な事情か）
-- 消すのはその後。理由なく消すと、分析の結論がゆがみます
+- 数式でも定義されます：Q1 − 1.5×IQR より小さい、または Q3 ＋ 1.5×IQR より大きい
+- 外れ値も大事な情報なので，削除して無かったことにしてはいけません．
 
 ---
 
+::: {.callout}
 ```{python}
 one_class = pd.Series([42, 48, 52, 55, 57, 58, 60, 61, 62, 63, 64, 65, 66,
                        67, 68, 69, 70, 71, 73, 75, 77, 79, 82, 86, 118])
@@ -156,6 +166,7 @@ plt.figure()
 one_class.plot.box()
 plt.show()
 ```
+:::
 
 ## 伝わるデザインの約束
 
@@ -165,6 +176,7 @@ plt.show()
 - 色は少なく。強調したい所だけ色を付ける
 - 飾り（影、立体、グラデーション）は付けない
 
+::: {.callout}
 ```{python}
 vals = pd.Series([98, 100], index=["A店", "B店"])
 fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.2))
@@ -173,26 +185,32 @@ vals.plot.bar(ax=axes[1], color="#4C78A8", ylim=(0, 110), title="良い例:軸�
 plt.tight_layout()
 plt.show()
 ```
+:::
 
 ---
 
+::: {.callout}
 ```{python}
 sales.plot.bar(color=["gray", "gray", "#E45756", "gray"],
                title="ジュースの売上が伸びている", ylabel="杯数")
 plt.show()
 ```
+:::
 
 ---
 
+::: {.callout}
 ```{python}
 ax = temp.plot.line(marker="o", title="週の後半に暑くなった", ylabel="最高気温(℃)")
 ax.annotate("今週の最高", xy=(4, 27), xytext=(2, 28),  # 位置は左から数えた番号(月=0…金=4)
             arrowprops=dict(arrowstyle="->"))
 plt.show()
 ```
+:::
 
 ## 並べて比べる
 
+::: {.callout}
 ```{python}
 fig, axes = plt.subplots(2, 2, figsize=(8, 6))
 temp.plot.line(ax=axes[0, 0], marker="o", title="最高気温(折れ線)")
@@ -204,6 +222,7 @@ heights.plot.hist(ax=axes[1, 1], bins=12, color="#54A24B",
 plt.tight_layout()
 plt.show()
 ```
+:::
 
 ## 演習
 

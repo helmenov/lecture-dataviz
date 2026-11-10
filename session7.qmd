@@ -57,15 +57,18 @@ matplotlib.rcParams["axes.unicode_minus"] = False
 
 ## 下見の例：仮説「音楽があると反応が遅くなるはず」
 
+::: {.callout}
 ```{python}
 rt = pd.read_csv("data/psych_rt.csv")
 cmp_table = (rt.groupby("条件")["反応時間"].agg(["mean", "median", "count"])
              .rename(columns={"mean": "平均", "median": "中央値", "count": "人数"}))
-print(cmp_table)
+display(cmp_table)
 ```
+:::
 
 ---
 
+::: {.callout}
 ```{python}
 rt.boxplot(column="反応時間", by="条件")
 plt.title("音楽があると反応は遅い(下見: 分布で比べる)")
@@ -74,6 +77,7 @@ plt.xlabel("")
 plt.ylabel("反応時間(ミリ秒)")
 plt.show()
 ```
+:::
 
 ## データ集め計画シート
 

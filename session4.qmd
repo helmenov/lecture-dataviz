@@ -24,57 +24,69 @@ import pandas as pd
 
 ## 段階1：収集（一覧表）
 
+::: {.callout}
 ```{python}
 weather = pd.read_csv("data/weather_week.csv")
-print(weather.head(10))
+display(weather.head(10))
 ```
+:::
 
 - pandas では、表全体を **DataFrame** と呼びます
 - まず全体を表示し、行数（データの件数）と列（変数）を確認します
 
+::: {.callout}
 ```{python}
-print(weather.shape)     # (行数, 列数)
-print(weather.dtypes)    # 各列の型
+display(weather.shape)     # (行数, 列数)
+display(weather.dtypes)    # 各列の型
 ```
+:::
 
 ## 段階2：要約（代表値・統計値の表）
 
 一覧表のままでは姿が見えないので、変数ごとに代表値や統計値に置き換えます。
 
+::: {.callout}
 ```{python}
 rt = pd.read_csv("data/psych_rt.csv")
-print(rt[["反応時間", "正答数"]].describe())
+display(rt[["反応時間", "正答数"]].describe())
 ```
+:::
 
 - `describe()` は、個数・平均・標準偏差・最小・四分位数・最大を一度に並べてくれます
 - ここの四分位数（25%、50%、75%）が、第5コマの箱ひげ図につながります
 
 ## 段階3：関係（クロス集計表）
 
+::: {.callout}
 ```{python}
 survey = pd.read_csv("data/survey.csv")
-print(pd.crosstab(survey["年代"], survey["満足度"]))
+display(pd.crosstab(survey["年代"], survey["満足度"]))
 ```
+:::
 
 - 割合で見たいときは `normalize="index"` を付けます（行ごとに100%）
 
+::: {.callout}
 ```{python}
 ct = pd.crosstab(survey["年代"], survey["満足度"], normalize="index")
-print((ct * 100).round(1))
+display((ct * 100).round(1))
 ```
+:::
 
 ---
 
 - グループごとの合計や平均は `groupby` で作ります（この例は「一元表」にもなります）
 
+::: {.callout}
 ```{python}
 sales = pd.read_csv("data/shop_sales.csv")
 sales["金額"] = sales["単価"] * sales["個数"]
 by_item = (sales.groupby("商品")[["金額", "個数"]].sum()
            .rename(columns={"金額": "金額合計", "個数": "個数合計"})
            .sort_values("金額合計", ascending=False))
-print(by_item)
+display(by_item)
 ```
+:::
 
 ## 段階4：推測と混同行列
 
@@ -95,14 +107,16 @@ print(by_item)
 - 判断の基準がゆるい人は「ヒットも誤警報も多い」、厳しい人は「見落としが多い」といった具合に、4つのマスのバランスに、その人の判断のクセが表れます
 - この表はまさに混同行列です。pandas では `pd.crosstab(刺激の列, 反応の列)` で作れます
 
+::: {.callout}
 ```{python}
 sdt = pd.read_csv("data/sdt_trials.csv")
 cm = pd.crosstab(sdt["刺激"], sdt["反応"])
-print(cm)
+display(cm)
 hit_rate = cm.loc["あり", "あった"] / cm.loc["あり"].sum()
 fa_rate = cm.loc["なし", "あった"] / cm.loc["なし"].sum()
-print(f"ヒット率: {hit_rate:.0%} / 誤警報率: {fa_rate:.0%}")
+display(f"ヒット率: {hit_rate:.0%} / 誤警報率: {fa_rate:.0%}")
 ```
+:::
 
 ## 表を作るときの約束
 
